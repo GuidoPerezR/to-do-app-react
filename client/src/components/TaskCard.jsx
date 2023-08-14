@@ -6,13 +6,22 @@ export function TaskCard({ task }) {
   const handleRefresh = () => {
     window.location.reload();
   };
+
   return (
     <div className="bg-zinc-900 text-white p-5 rounded-full flex justify-between">
       <div className="flex gap-8">
         <div
-          className="bg-purple-900 p-6 rounded-full"
+          className={
+            !task.completed
+              ? "bg-black p-6 rounded-full"
+              : "bg-purple-900 p-6 rounded-full"
+          }
           onClick={async () => {
-            task.completed = true;
+            if (!task.completed) {
+              task.completed = true;
+            } else {
+              task.completed = false;
+            }
             await updateTask(task.id, task);
             handleRefresh();
           }}
